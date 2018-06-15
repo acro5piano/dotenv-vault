@@ -18,10 +18,13 @@ dotenv-vault::help() {
     echo 'usage: dotenv-vault'
     echo '    encrypt FILE'
     echo '    decrypt FILE'
+    echo '    create|generate KEY=VALUE'
 }
 
 case $command in
     'encrypt') dotenv-vault::encrypt $@ ;;
     'decrypt') dotenv-vault::decrypt $@ ;;
+    'create') dotenv-vault::create $@ ;;
+    'generate') dotenv-vault::create $@ ;;
     *) dotenv-vault::help ;;
 esac
