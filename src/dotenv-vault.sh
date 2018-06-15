@@ -14,11 +14,11 @@ dotenv-vault::check() {
 }
 
 dotenv-vault::ask-key() {
-    if [ -z $DOTENV_KEY ]; then
-        read -p 'Please input payme password and press Return: ' -s DOTENV_KEY
+    if [ -z $DOTENV_VAULT_PASSPHRASE ]; then
+        read -p 'Please input password and press Return: ' -s DOTENV_VAULT_PASSPHRASE
     fi
 
-    echo $DOTENV_KEY
+    echo $DOTENV_VAULT_PASSPHRASE
 }
 
 dotenv-vault::encrypt-file() {

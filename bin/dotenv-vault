@@ -1,6 +1,16 @@
 #!/bin/bash
 
-source ~/.dotenv-vault/src/dotenv-vault.sh
+ROOT_DIR=`cd $(dirname $0); pwd`/..
+
+if [ -e $ROOT_DIR/src/dotenv-vault.sh ]; then
+    source $ROOT_DIR/src/dotenv-vault.sh
+elif [ -e ~/.dotenv-vault/src/dotenv-vault.sh ]; then
+    source ~/.dotenv-vault/src/dotenv-vault.sh
+else
+    echo 'No lib dotenv-vault/src/dotenv-vault.sh found' 1>&2
+    exit 2
+fi
+
 
 command=$1
 
