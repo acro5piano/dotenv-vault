@@ -1,2 +1,2 @@
 NODE_ENV=development
-API_KEY=123456789 # !encrypt
+API_KEY=123456789 # encrypt-me
