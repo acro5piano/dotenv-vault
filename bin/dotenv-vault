@@ -1,0 +1,13 @@
+#!/bin/bash
+
+ROOT_DIR=`cd $(dirname $0); pwd`
+TEMPLATE_PATH=$ROOT_DIR/assets
+
+source $ROOT_DIR/../src/*.sh
+
+command=$1
+
+case $command in
+    'encrypt') dotenv-vault::encrypt $@ ;;
+    'decrypt') dotenv-vault::decrypt $@ ;;
+esac
