@@ -1,5 +1,3 @@
-rm /tmp/dotenv.*
-
 source src/dotenv-vault.sh
 
 set +eu
