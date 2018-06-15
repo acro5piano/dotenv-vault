@@ -86,11 +86,11 @@ API_KEY=123456789 # encrypt-me
 
 ## Password Option
 
-- If ENV["DOTENV_PASSWORD"] present, use it as passphrase.
-- If `.dotenv-vault` file present, use the content of the file as passphrase.
+- If ENV["DOTENV_PASSWORD"] present, use it as password.
+- If `.dotenv-password` file present, use the content of the file as password.
 - Else, dotenv-vault ask you at runtime.
 
-Note you must not include the `.dotenv-vault` file to any repo.
+Note you must not include the `.dotenv-password` file to any repo.
 
 # Update
 
