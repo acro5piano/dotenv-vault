@@ -2,6 +2,8 @@
 
 # dotenv-vault
 
+![](https://github.com/acro5piano/dotenv-vault/blob/master/demo.gif)
+
 simple dotenv encrypt tool inspired by yaml_vault
 
 Default cipher is aes-256-cbc. Default sign digest is SHA256.
