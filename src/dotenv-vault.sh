@@ -30,12 +30,12 @@ dotenv-vault::get-key() {
 
 dotenv-vault::encrypt-file() {
     file=$1
-    key=$2
+    password=$2
     cat $file | while read line
     do
         if echo $line | grep -q '# encrypt-me'; then
             key=`echo $line | perl -pe 's/(.+?)=.+# encrypt-me/\1/'`
-            value=`echo $line | perl -pe 's/.+?=(.+)# encrypt-me/\1/' | openssl aes-256-cbc -A -base64 -k $key -e`
+            value=`echo $line | perl -pe 's/.+?=(.+) # encrypt-me/\1/' | openssl aes-256-cbc -A -base64 -k $password -e`
             echo "$key=$value # decrypt-me"
         else
             echo $line
@@ -45,18 +45,27 @@ dotenv-vault::encrypt-file() {
 
 dotenv-vault::decrypt-file() {
     file=$1
-    key=$2
+    password=$2
     cat $file | while read line
     do
         if echo $line | grep -q '# decrypt-me'; then
             key=`echo $line | perl -pe 's/(.+?)=.+# decrypt-me/\1/'`
-            encrypted_value=`echo $line | perl -pe 's/.+?=(.+) # decrypt-me/\1\n/'`
-            value=`echo $encrypted_value | openssl aes-256-cbc -A -base64 -k $key -d`
-            echo "$key=$value# encrypt-me"
+            encrypted_value=`echo $line | perl -pe 's/.+?=(.+) # decrypt-me/\1/'`
+            value=`echo $encrypted_value | openssl aes-256-cbc -A -base64 -k $password -d`
+            # value=`echo $line | perl -pe 's/.+?=(.+) # decrypt-me/\1/' | openssl aes-256-cbc -A -base64 -k $password -d`
+            echo "$key=$value # encrypt-me"
         else
             echo $line
         fi
     done
+}
+
+dotenv-vault::create() {
+    target=$2
+    password=`dotenv-vault::get-key`
+    key=`echo $target | perl -pe 's/(.+?)=.+/\1/'`
+    encrypted_value=`echo $target | perl -pe 's/.+?=(.+)/\1/' | openssl aes-256-cbc -A -base64 -k $password -e`
+    echo "$key=$encrypted_value # decrypt-me"
 }
 
 dotenv-vault::encrypt() {
