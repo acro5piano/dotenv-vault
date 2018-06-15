@@ -48,7 +48,7 @@ where `# encrypt-me` is the mark of the line dotenv-vault encrypt.
 Command:
 
 ```
-env DOTENV_PASSWORD=foobarbaz dotenv-vault encrypt .env
+$ env DOTENV_PASSWORD=foobarbaz dotenv-vault encrypt .env
 ```
 
 Output:
@@ -74,7 +74,7 @@ API_KEY=U2FsdGVkX186T6zdupR27pXHO0Hdnz9rqZfVdgqBEqk= # decrypt-me
 Command:
 
 ```
-env DOTENV_PASSWORD=foobarbaz dotenv-vault decrypt .env.encrypted
+$ env DOTENV_PASSWORD=foobarbaz dotenv-vault decrypt .env.encrypted
 ```
 
 Output:
@@ -84,9 +84,25 @@ NODE_ENV=development
 API_KEY=123456789 # encrypt-me
 ```
 
+## Create Encrypt env
+
+`dotenv-vault create` command is convenient to create new entry:
+
+```
+$ env DOTENV_PASSWORD=foobarbaz bin/dotenv-vault create 'SOME_KEY=123456'
+
+# => SOME_KEY=U2FsdGVkX18tEclKImEV30HSG0b7IOu3dyO3MpceCd4= # decrypt-me
+```
+
+You can paste or redirect to register new entry like this:
+
+```
+$ env DOTENV_PASSWORD=foobarbaz bin/dotenv-vault create 'SOME_KEY=123456' >> .env
+```
+
 ## Password Option
 
-- If ENV["DOTENV_PASSWORD"] present, use it as password.
+- If `DOTENV_PASSWORD` environment variable present, use it as password.
 - If `.dotenv-password` file present, use the content of the file as password.
 - Else, dotenv-vault ask you at runtime.
 
