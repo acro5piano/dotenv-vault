@@ -1,10 +1,6 @@
 #!/bin/bash
 
-ROOT_DIR=`cd $(dirname $0); pwd`
-
-for f in $ROOT_DIR/../src/*.sh; do
-    source $f
-done
+source ~/.dotenv-vault/src/dotenv-vault.sh
 
 command=$1
 
