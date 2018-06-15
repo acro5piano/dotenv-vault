@@ -1,12 +1,19 @@
 export DOTENV_KEY=foobarbaz
 
+rm /tmp/dotenv.*
+
 testcase_encrypt() {
-    cp tests/dotenv /tmp/dotenv
-    bin/dotenv-vault encrypt /tmp/dotenv
+    bin/dotenv-vault encrypt tests/dotenv > /tmp/dotenv.encrypted
 
-    encrypted_line_count=`cat /tmp/dotenv | grep -c 123456789`
-    assert_equal 0 $encrypted_line_count
+    assert_equal 0 `cat /tmp/dotenv.encrypted | grep -c 123456789`
+    assert_equal 0 `cat /tmp/dotenv.encrypted | grep -c '1234=56789='`
+    assert_equal 1 `cat /tmp/dotenv.encrypted | grep -c 'NODE_ENV=production'`
+}
 
-    no_encrypt_line_count=`cat /tmp/dotenv | grep -c NODE_ENV`
-    assert_equal 1 $no_encrypt_line_count
+testcase_decrypt() {
+    bin/dotenv-vault decrypt tests/dotenv.encrypted > /tmp/dotenv.decrypted
+
+    assert_equal 1 `cat /tmp/dotenv.decrypted | grep -c 123456789`
+    assert_equal 1 `cat /tmp/dotenv.decrypted | grep -c '1234=56789='`
+    assert_equal 1 `cat /tmp/dotenv.decrypted | grep -c 'NODE_ENV=production'`
 }

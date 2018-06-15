@@ -28,7 +28,7 @@ dotenv-vault::encrypt-file() {
     do
         if echo $line | grep -q '# encrypt-me'; then
             key=`echo $line | perl -pe 's/(.+?)=.+# encrypt-me/\1/'`
-            value=`echo $line | perl -pe 's/.+?=(.+)# encrypt-me/\1/' | openssl aes-256-cbc -base64 -k hoge -e`
+            value=`echo $line | perl -pe 's/.+?=(.+)# encrypt-me/\1/' | openssl aes-256-cbc -base64 -k $key -e`
             echo "$key=$value # decrypt-me"
         else
             echo $line
@@ -43,9 +43,8 @@ dotenv-vault::decrypt-file() {
     do
         if echo $line | grep -q '# decrypt-me'; then
             key=`echo $line | perl -pe 's/(.+?)=.+# decrypt-me/\1/'`
-            # value=`echo $line | perl -pe 's/.+?=(.+)# decrypt-me/\1/' | openssl aes-256-cbc -base64 -k hoge -d`
             decrypted_value=`echo $line | perl -pe 's/.+?=(.+)# decrypt-me/\1\n/'`
-            value=`echo $decrypted_value | openssl aes-256-cbc -base64 -k hoge -d`
+            value=`echo $decrypted_value | openssl aes-256-cbc -base64 -k $key -d`
             echo "$key=$value # encrypt-me"
         else
             echo $line

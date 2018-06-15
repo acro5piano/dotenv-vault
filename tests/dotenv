@@ -1,2 +1,3 @@
-NODE_ENV=development
+NODE_ENV=production
 API_KEY=123456789 # encrypt-me
+INCLUDE_EQUAL_KEY=1234=56789= # encrypt-me
