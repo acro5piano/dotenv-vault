@@ -35,7 +35,7 @@ where `# encrypt-me` is the mark of the line dotenv-vault encrypt.
 Command:
 
 ```
-env DOTENV_VAULT_PASSPHRASE=foobarbaz dotenv-vault encrypt .env
+env DOTENV_PASSWORD=foobarbaz dotenv-vault encrypt .env
 ```
 
 Output:
@@ -61,7 +61,7 @@ API_KEY=U2FsdGVkX186T6zdupR27pXHO0Hdnz9rqZfVdgqBEqk= # decrypt-me
 Command:
 
 ```
-env DOTENV_VAULT_PASSPHRASE=foobarbaz dotenv-vault decrypt .env.encrypted
+env DOTENV_PASSWORD=foobarbaz dotenv-vault decrypt .env.encrypted
 ```
 
 Output:
@@ -71,8 +71,21 @@ NODE_ENV=development
 API_KEY=123456789 # encrypt-me
 ```
 
+## Password Option
+
+- If ENV["DOTENV_PASSWORD"] present, use it as passphrase.
+- If `.dotenv-vault` file present, use the content of the file as passphrase.
+- Else, dotenv-vault ask you at runtime.
+
+Note you must not include the `.dotenv-vault` file to any repo.
+
+# Development
+
+After checking out the repo, run `make` to run all tests.
+
 # TODO
 
+- [ ] Add `.dotenv-password` to save the password
 - [ ] Add auth methods
   - [ ] AWS KMS
   - [ ] GCP KMS

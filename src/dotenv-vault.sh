@@ -13,12 +13,19 @@ dotenv-vault::check() {
     fi
 }
 
-dotenv-vault::ask-key() {
-    if [ -z $DOTENV_VAULT_PASSPHRASE ]; then
-        read -p 'Please input password and press Return: ' -s DOTENV_VAULT_PASSPHRASE
+dotenv-vault::get-key() {
+    if ! [ -z $DOTENV_PASSWORD ]; then
+        echo $DOTENV_PASSWORD
+        return 0
     fi
 
-    echo $DOTENV_VAULT_PASSPHRASE
+    if [ -e .dotenv-password ]; then
+        cat .dotenv-password
+        return 0
+    fi
+
+    read -p 'Please input password and press Return: ' -s DOTENV_PASSWORD
+    echo $DOTENV_PASSWORD
 }
 
 dotenv-vault::encrypt-file() {
@@ -54,7 +61,7 @@ dotenv-vault::decrypt-file() {
 
 dotenv-vault::encrypt() {
     dotenv-vault::check $@
-    key=`dotenv-vault::ask-key`
+    key=`dotenv-vault::get-key`
 
     file=$2
     dotenv-vault::encrypt-file $file $key
@@ -62,7 +69,7 @@ dotenv-vault::encrypt() {
 
 dotenv-vault::decrypt() {
     dotenv-vault::check $@
-    key=`dotenv-vault::ask-key`
+    key=`dotenv-vault::get-key`
 
     file=$2
     dotenv-vault::decrypt-file $file $key
