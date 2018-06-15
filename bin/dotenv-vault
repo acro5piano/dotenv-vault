@@ -1,13 +1,21 @@
 #!/bin/bash
 
 ROOT_DIR=`cd $(dirname $0); pwd`
-TEMPLATE_PATH=$ROOT_DIR/assets
 
-source $ROOT_DIR/../src/*.sh
+for f in $ROOT_DIR/../src/*.sh; do
+    source $f
+done
 
 command=$1
+
+dotenv-vault::help() {
+    echo 'usage: dotenv-vault'
+    echo '    encrypt FILE'
+    echo '    decrypt FILE'
+}
 
 case $command in
     'encrypt') dotenv-vault::encrypt $@ ;;
     'decrypt') dotenv-vault::decrypt $@ ;;
+    *) dotenv-vault::help ;;
 esac
