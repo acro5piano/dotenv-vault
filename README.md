@@ -103,7 +103,7 @@ After checking out the repo, run `make` to run all tests.
 
 # TODO
 
-- [ ] Add `.dotenv-password` to save the password
+- [x] Add `.dotenv-password` to save the password
 - [ ] Add auth methods
   - [ ] AWS KMS
   - [ ] GCP KMS
