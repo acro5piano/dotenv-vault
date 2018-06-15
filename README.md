@@ -6,10 +6,21 @@ Default cipher is aes-256-cbc. Default sign digest is SHA256.
 
 # Install
 
+For MacOS:
+
+```
+git clone https://github.com/acro5piano/dotenv-vault ~/.dotenv-vault
+ln -sfnv ~/.dotenv-vault/bin/dotenv-vault /usr/local/bin/dotenv-vault
+```
+
+For Linux:
+
 ```
 git clone https://github.com/acro5piano/dotenv-vault ~/.dotenv-vault
 sudo ln -sfnv ~/.dotenv-vault/bin/dotenv-vault /usr/bin/dotenv-vault
 ```
+
+## Requirements
 
 dotenv-vault requires the following:
 
@@ -78,6 +89,13 @@ API_KEY=123456789 # encrypt-me
 - Else, dotenv-vault ask you at runtime.
 
 Note you must not include the `.dotenv-vault` file to any repo.
+
+# Update
+
+```
+cd ~/.dotenv-vault
+git pull origin master
+```
 
 # Development
 
