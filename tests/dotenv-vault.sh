@@ -3,17 +3,17 @@ export DOTENV_VAULT_PASSPHRASE=foobarbaz
 rm /tmp/dotenv.*
 
 testcase_encrypt() {
-    bin/dotenv-vault encrypt tests/dotenv > /tmp/dotenv.encrypted
+    bin/dotenv-vault encrypt tests/assets/dotenv > /tmp/dotenv.encrypted
 
-    assert_equal 1 `grep -c /tmp/dotenv.encrypted 'NODE_ENV=production'`
-    assert_equal 0 `cat /tmp/dotenv.encrypted | grep -c 123456789`
-    assert_equal 0 `cat /tmp/dotenv.encrypted | grep -c '1234=56789='`
+    assert_equal 1 `grep -c 'NODE_ENV=production' /tmp/dotenv.encrypted`
+    assert_equal 0 `grep -c 123456789 /tmp/dotenv.encrypted`
+    assert_equal 0 `grep -c '1234=56789=' /tmp/dotenv.encrypted`
 }
 
 testcase_decrypt() {
-    bin/dotenv-vault decrypt tests/dotenv.encrypted > /tmp/dotenv.decrypted
+    bin/dotenv-vault decrypt tests/assets/dotenv.encrypted > /tmp/dotenv.decrypted
 
-    assert_equal 1 `cat /tmp/dotenv.decrypted | grep -c 'NODE_ENV=production'`
-    assert_equal 1 `cat /tmp/dotenv.decrypted | grep -c 123456789`
-    assert_equal 1 `cat /tmp/dotenv.decrypted | grep -c '1234=56789='`
+    assert_equal 1 `grep -c 'NODE_ENV=production' /tmp/dotenv.decrypted`
+    assert_equal 1 `grep -c 123456789 /tmp/dotenv.decrypted`
+    assert_equal 1 `grep -c '1234=56789=' /tmp/dotenv.decrypted`
 }
