@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/acro5piano/dotenv-vault.svg?style=svg)](https://circleci.com/gh/acro5piano/dotenv-vault)
+
 # dotenv-vault
 
 simple dotenv encrypt tool inspired by yaml_vault
