@@ -5,7 +5,7 @@ rm /tmp/dotenv.*
 testcase_encrypt() {
     bin/dotenv-vault encrypt tests/dotenv > /tmp/dotenv.encrypted
 
-    assert_equal 1 `cat /tmp/dotenv.encrypted | grep -c 'NODE_ENV=production'`
+    assert_equal 1 `grep -c /tmp/dotenv.encrypted 'NODE_ENV=production'`
     assert_equal 0 `cat /tmp/dotenv.encrypted | grep -c 123456789`
     assert_equal 0 `cat /tmp/dotenv.encrypted | grep -c '1234=56789='`
 }
