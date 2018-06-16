@@ -4,11 +4,11 @@ set -e
 
 dotenv-vault::check() {
     if [ -z "$2" ]; then
-        echo 'No filename'
+        echo 'No filename' 1>&2
         return 1
     fi
     if ! [ -e "$2" ]; then
-        echo 'Not exist'
+        echo 'Not exist' 1>&2
         return 2
     fi
 }

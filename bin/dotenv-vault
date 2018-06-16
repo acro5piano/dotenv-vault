@@ -15,10 +15,10 @@ fi
 command=$1
 
 dotenv-vault::help() {
-    echo 'usage: dotenv-vault'
-    echo '    encrypt FILE'
-    echo '    decrypt FILE'
-    echo '    create|generate KEY=VALUE'
+    echo 'usage: dotenv-vault' 1>&2
+    echo '    encrypt FILE' 1>&2
+    echo '    decrypt FILE' 1>&2
+    echo '    create|generate KEY=VALUE' 1>&2
 }
 
 case $command in
