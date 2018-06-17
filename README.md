@@ -28,9 +28,9 @@ sudo ln -sfnv ~/.dotenv-vault/bin/dotenv-vault /usr/bin/dotenv-vault
 
 dotenv-vault requires the following:
 
-- Bash > 2
-- Openssl > 2
-- Perl > 5
+- Bash >= 2
+- Openssl >= 2
+- Perl >= 5
 
 Almost all machine does not need any installation process.
 
