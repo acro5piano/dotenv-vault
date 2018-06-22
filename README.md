@@ -101,7 +101,7 @@ $ bin/dotenv-vault -k foobarbaz create 'SOME_KEY=123456' >> .env
 # Options
 
 - `-k` specify password
-- `-e` specify the key to encrypt or decrypt. You can use Regular Expression like `-e 'A_KEY|ANOTHER_KEY|SECRET_*'`
+- `-e` specify the key to encrypt or decrypt. You can use Regular Expression like `-e 'A_KEY|ANOTHER_KEY|SECRET_.*'`
 
 ## Password Option
 
