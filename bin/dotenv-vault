@@ -11,9 +11,6 @@ else
     exit 2
 fi
 
-
-command=$1
-
 dotenv-vault::help() {
     echo 'usage: dotenv-vault' 1>&2
     echo '    encrypt FILE' 1>&2
@@ -21,9 +18,23 @@ dotenv-vault::help() {
     echo '    create|generate KEY=VALUE' 1>&2
 }
 
+while getopts e:k: OPT
+do
+    case $OPT in
+        k)  key=$OPTARG ;;
+        e)  exp=$OPTARG ;;
+        \?) dotenv-vault::help; exit 1 ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
+command=$1
+file=$2
+
 case $command in
-    'encrypt') dotenv-vault::encrypt $@ ;;
-    'decrypt') dotenv-vault::decrypt $@ ;;
+    'encrypt') dotenv-vault::encrypt $file $key $exp ;;
+    'decrypt') dotenv-vault::decrypt $file $key $exp ;;
     'create') dotenv-vault::create $@ ;;
     'generate') dotenv-vault::create $@ ;;
     *) dotenv-vault::help ;;
