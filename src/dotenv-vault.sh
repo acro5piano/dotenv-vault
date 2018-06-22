@@ -74,7 +74,10 @@ dotenv-vault::decrypt-file() {
 
 dotenv-vault::create() {
     target=$1
-    password=`dotenv-vault::get-key`
+    password=$2
+    if [ -z $password ]; then
+        password=`dotenv-vault::get-key`
+    fi
     key=`dotenv-vault::get-key-from-line $target`
     value=`dotenv-vault::get-value-from-line $target`
     encrypted_value=`echo $value | openssl aes-256-cbc -A -base64 -k $password -e`
