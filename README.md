@@ -32,7 +32,7 @@ dotenv-vault requires the following:
 - Openssl > 2
 - Perl > 5
 
-Almost all machine does not need any installation process.
+Almost all machine does not need any additional installation process.
 
 # Usage
 
@@ -42,25 +42,23 @@ Input file (.env):
 
 ```
 NODE_ENV=development
-API_KEY=123456789 # encrypt-me
+API_KEY=123456789
 ```
-
-where `# encrypt-me` is the mark of the line dotenv-vault encrypt.
 
 Command:
 
 ```
-$ env DOTENV_PASSWORD=foobarbaz dotenv-vault encrypt .env
+$ dotenv-vault -e API_KEY -k foobarbaz encrypt .env
 ```
+
+where `-e` specify the key you encrypt.
 
 Output:
 
 ```
 NODE_ENV=development
-API_KEY=U2FsdGVkX186T6zdupR27pXHO0Hdnz9rqZfVdgqBEqk= # decrypt-me
+API_KEY=U2FsdGVkX186T6zdupR27pXHO0Hdnz9rqZfVdgqBEqk=
 ```
-
-`# decrypt-me` will be used when decrypt the file.
 
 ## Decrypt
 
@@ -68,22 +66,20 @@ Input file (.env.encrypted):
 
 ```
 NODE_ENV=development
-API_KEY=U2FsdGVkX186T6zdupR27pXHO0Hdnz9rqZfVdgqBEqk= # decrypt-me
+API_KEY=U2FsdGVkX186T6zdupR27pXHO0Hdnz9rqZfVdgqBEqk=
 ```
-
-`# decrypt-me` is the mark of the line dotenv-vault decrypt.
 
 Command:
 
 ```
-$ env DOTENV_PASSWORD=foobarbaz dotenv-vault decrypt .env.encrypted
+$ dotenv-vault -e API_KEY -k foobarbaz decrypt .env
 ```
 
 Output:
 
 ```
 NODE_ENV=development
-API_KEY=123456789 # encrypt-me
+API_KEY=123456789
 ```
 
 ## Create Encrypt env
@@ -91,19 +87,25 @@ API_KEY=123456789 # encrypt-me
 `dotenv-vault create` command is convenient to create new entry:
 
 ```
-$ env DOTENV_PASSWORD=foobarbaz bin/dotenv-vault create 'SOME_KEY=123456'
+$ bin/dotenv-vault -k foobarbaz create 'SOME_KEY=123456'
 
-# => SOME_KEY=U2FsdGVkX18tEclKImEV30HSG0b7IOu3dyO3MpceCd4= # decrypt-me
+# => SOME_KEY=U2FsdGVkX18tEclKImEV30HSG0b7IOu3dyO3MpceCd4=
 ```
 
 You can paste or redirect to register new entry like this:
 
 ```
-$ env DOTENV_PASSWORD=foobarbaz bin/dotenv-vault create 'SOME_KEY=123456' >> .env
+$ bin/dotenv-vault -k foobarbaz create 'SOME_KEY=123456' >> .env
 ```
+
+# Options
+
+- `-k` specify password
+- `-e` specify the key to encrypt or decrypt. (TODO: multiple keys, or regex)
 
 ## Password Option
 
+- If `-k` option present, use it as password.
 - If `DOTENV_PASSWORD` environment variable present, use it as password.
 - If `.dotenv-password` file present, use the content of the file as password.
 - Else, dotenv-vault ask you at runtime.
