@@ -11,11 +11,11 @@ testcase_get_key_should_recognize_password_file() {
 }
 
 testcase_with_file_should_same_with_env() {
-    env DOTENV_PASSWORD=foobarbaz bin/dotenv-vault encrypt tests/assets/dotenv > /tmp/dotenv.encrypted
+    bin/dotenv-vault -k foobarbaz encrypt tests/assets/dotenv > /tmp/dotenv.encrypted
 
     echo foobarbaz > .dotenv-password
 
-    bin/dotenv-vault decrypt /tmp/dotenv.encrypted > /tmp/dotenv.decrypted
+    bin/dotenv-vault -k foobarbaz decrypt /tmp/dotenv.encrypted > /tmp/dotenv.decrypted
 
     assert_true diff /tmp/dotenv.decrypted tests/assets/dotenv
 

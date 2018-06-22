@@ -1,3 +1,3 @@
-NODE_ENV=production
-API_KEY=U2FsdGVkX1+1c/RvmdmZhNbUZeCMbKbYb8/pbEa5IOI= # decrypt-me
-INCLUDE_EQUAL_KEY=U2FsdGVkX18UC2GnhlQoBX7o2cjz3fHLswYqpQ7rdCI= # decrypt-me
+NODE_ENV=U2FsdGVkX19lHjqp3IuNbmB1xo++nIu5wuVfTh4LnWo=
+API_KEY=U2FsdGVkX1+1c/RvmdmZhNbUZeCMbKbYb8/pbEa5IOI=
+INCLUDE_EQUAL_KEY=U2FsdGVkX18UC2GnhlQoBX7o2cjz3fHLswYqpQ7rdCI=
