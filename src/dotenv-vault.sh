@@ -73,11 +73,12 @@ dotenv-vault::decrypt-file() {
 }
 
 dotenv-vault::create() {
-    target=$2
+    target=$1
     password=`dotenv-vault::get-key`
-    key=`echo $target | perl -pe 's/(.+?)=.+/\1/'`
-    encrypted_value=`echo $target | perl -pe 's/.+?=(.+)/\1/' | openssl aes-256-cbc -A -base64 -k $password -e`
-    echo "$key=$encrypted_value # decrypt-me"
+    key=`dotenv-vault::get-key-from-line $target`
+    value=`dotenv-vault::get-value-from-line $target`
+    encrypted_value=`echo $value | openssl aes-256-cbc -A -base64 -k $password -e`
+    echo "$key=$encrypted_value"
 }
 
 dotenv-vault::encrypt() {

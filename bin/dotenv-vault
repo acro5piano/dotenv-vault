@@ -35,7 +35,7 @@ file=$2
 case $command in
     'encrypt') dotenv-vault::encrypt $file $key $exp ;;
     'decrypt') dotenv-vault::decrypt $file $key $exp ;;
-    'create') dotenv-vault::create $@ ;;
-    'generate') dotenv-vault::create $@ ;;
+    'create') dotenv-vault::create $file ;;
+    'generate') dotenv-vault::create $file ;;
     *) dotenv-vault::help ;;
 esac
