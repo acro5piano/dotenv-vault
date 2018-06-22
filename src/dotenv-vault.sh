@@ -36,6 +36,12 @@ dotenv-vault::get-value-from-line() {
     echo $1 | perl -pe 's/.+?=(.+)$/\1/'
 }
 
+dotenv-vault::should-encrypt() {
+    key=$1
+    pattern=$2
+    ! [ -z $pattern ] && ! echo $key | egrep -q $pattern
+}
+
 dotenv-vault::encrypt-file() {
     file=$1
     password=$2
@@ -45,7 +51,7 @@ dotenv-vault::encrypt-file() {
         key=`dotenv-vault::get-key-from-line $line`
         value=`dotenv-vault::get-value-from-line $line`
 
-        if ! [ -z $pattern ] && [ $key != $pattern ]; then
+        if dotenv-vault::should-encrypt $key $pattern; then
             echo "$key=$value"
         else
             value=`echo $value | openssl aes-256-cbc -A -base64 -k $password -e`
@@ -63,7 +69,7 @@ dotenv-vault::decrypt-file() {
         key=`dotenv-vault::get-key-from-line $line`
         value=`dotenv-vault::get-value-from-line $line`
 
-        if ! [ -z $pattern ] && [ $key != $pattern ]; then
+        if dotenv-vault::should-encrypt $key $pattern; then
             echo "$key=$value"
         else
             value=`echo $value | openssl aes-256-cbc -A -base64 -k $password -d`
