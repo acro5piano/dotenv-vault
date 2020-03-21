@@ -54,7 +54,7 @@ dotenv-vault::encrypt-file() {
         if dotenv-vault::should-encrypt $key $pattern; then
             echo "$key=$value"
         else
-            value=`echo $value | openssl aes-256-cbc -A -base64 -k $password -e`
+            value=`echo $value | openssl aes-256-cbc -A -base64 -md sha512 -pbkdf2 -iter 100000 -pass pass:$password -e`
             echo "$key=$value"
         fi
     done
@@ -72,7 +72,7 @@ dotenv-vault::decrypt-file() {
         if dotenv-vault::should-encrypt $key $pattern; then
             echo "$key=$value"
         else
-            value=`echo $value | openssl aes-256-cbc -A -base64 -k $password -d`
+            value=`echo $value | openssl aes-256-cbc -A -base64 -md sha512 -pbkdf2 -iter 100000 -pass pass:$password -d`
             echo "$key=$value"
         fi
     done
@@ -86,7 +86,7 @@ dotenv-vault::create() {
     fi
     key=`dotenv-vault::get-key-from-line $target`
     value=`dotenv-vault::get-value-from-line $target`
-    encrypted_value=`echo $value | openssl aes-256-cbc -A -base64 -k $password -e`
+    encrypted_value=`echo $value | openssl aes-256-cbc -A -base64 -md sha512 -pbkdf2 -iter 100000 -pass pass:$password -e`
     echo "$key=$encrypted_value"
 }
 
