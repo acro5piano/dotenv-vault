@@ -1,3 +1,7 @@
+# Use git-crypt https://github.com/AGWA/git-crypt
+
+No more maintained. Use other tools.
+
 [![CircleCI](https://circleci.com/gh/acro5piano/dotenv-vault.svg?style=svg)](https://circleci.com/gh/acro5piano/dotenv-vault)
 
 # dotenv-vault
